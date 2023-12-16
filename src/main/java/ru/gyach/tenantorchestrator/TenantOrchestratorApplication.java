@@ -1,0 +1,13 @@
+package ru.gyach.tenantorchestrator;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TenantOrchestratorApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TenantOrchestratorApplication.class, args);
+	}
+
+}
