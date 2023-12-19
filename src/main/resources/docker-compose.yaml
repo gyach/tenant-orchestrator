@@ -1,0 +1,28 @@
+name: 'ru_gyach'
+volumes:
+  kafka:
+
+services:
+  postgres:
+    image: 'postgres:16-alpine'
+    hostname: 'postgres'
+    container_name: 'tenantorchestrator-postgres'
+    restart: on-failure
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5435:5432
+    volumes:
+      - type: bind
+        source: './db-init.sql'
+        target: '/docker-entrypoint-initdb.d/db-init.sql'
+        read_only: true
+
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    hostname: smtp4dev
+    container_name: gyach-smtp4dev
+    restart: unless-stopped
+    ports:
+      - "5000:80"
+      - "25:25"

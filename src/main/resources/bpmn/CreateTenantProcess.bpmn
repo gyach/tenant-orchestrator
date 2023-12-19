@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0">
+  <bpmn:process id="CREATE_TENANT_PROCESS" name="Create tenant process" isExecutable="true" camunda:versionTag="1" camunda:historyTimeToLive="180">
+    <bpmn:serviceTask id="Activity_0avj78i" name="Create tenant entity" camunda:asyncBefore="true" camunda:class="ru.gyach.tenantorchestrator.delegate.CreateTenantEntityDelegate">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0v5d56q</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tva99e</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1tva99e" sourceRef="Activity_0avj78i" targetRef="Activity_1ei77cd" />
+    <bpmn:endEvent id="Event_0dvi44u">
+      <bpmn:incoming>Flow_0uja0zj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Event_0ff1gcw">
+      <bpmn:outgoing>Flow_0v5d56q</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0v5d56q" sourceRef="Event_0ff1gcw" targetRef="Activity_0avj78i" />
+    <bpmn:sequenceFlow id="Flow_0uja0zj" sourceRef="Event_1p637vh" targetRef="Event_0dvi44u" />
+    <bpmn:intermediateCatchEvent id="Event_1p637vh" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_05ftiyu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uja0zj</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0yx4y5z">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1uzifm0" sourceRef="Activity_1ei77cd" targetRef="Activity_0056nq0" />
+    <bpmn:serviceTask id="Activity_1ei77cd" name="Create keycloak realm" camunda:asyncBefore="true" camunda:class="ru.gyach.tenantorchestrator.delegate.CreateKeycloakRealmDelegate">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1tva99e</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uzifm0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_05ftiyu" sourceRef="Activity_105y6r4" targetRef="Event_1p637vh" />
+    <bpmn:serviceTask id="Activity_105y6r4" name="Send welcome email to owner" camunda:asyncBefore="true" camunda:class="ru.gyach.tenantorchestrator.delegate.SendWelcomeEmailDelegate">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_09y3cnl</bpmn:incoming>
+      <bpmn:outgoing>Flow_05ftiyu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_09y3cnl" sourceRef="Activity_0056nq0" targetRef="Activity_105y6r4" />
+    <bpmn:callActivity id="Activity_0056nq0" name="Create kubernetes namespace with services" camunda:asyncBefore="true" calledElement="CREATE_K8S_NAMESPACE_PROCESS">
+      <bpmn:extensionElements>
+        <camunda:in variables="all" />
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uzifm0</bpmn:incoming>
+      <bpmn:outgoing>Flow_09y3cnl</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CREATE_TENANT_PROCESS">
+      <bpmndi:BPMNShape id="Activity_0os0err_di" bpmnElement="Activity_0avj78i">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ff1gcw_di" bpmnElement="Event_0ff1gcw">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1i6vkdq_di" bpmnElement="Activity_1ei77cd">
+        <dc:Bounds x="400" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0dvi44u_di" bpmnElement="Event_0dvi44u">
+        <dc:Bounds x="882" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ooupv6_di" bpmnElement="Event_1p637vh">
+        <dc:Bounds x="812" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1mfs0up_di" bpmnElement="Activity_105y6r4">
+        <dc:Bounds x="680" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1dd7a43_di" bpmnElement="Activity_0056nq0">
+        <dc:Bounds x="540" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0v5d56q_di" bpmnElement="Flow_0v5d56q">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tva99e_di" bpmnElement="Flow_1tva99e">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="400" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uja0zj_di" bpmnElement="Flow_0uja0zj">
+        <di:waypoint x="848" y="120" />
+        <di:waypoint x="882" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05ftiyu_di" bpmnElement="Flow_05ftiyu">
+        <di:waypoint x="780" y="120" />
+        <di:waypoint x="812" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uzifm0_di" bpmnElement="Flow_1uzifm0">
+        <di:waypoint x="500" y="120" />
+        <di:waypoint x="540" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09y3cnl_di" bpmnElement="Flow_09y3cnl">
+        <di:waypoint x="640" y="120" />
+        <di:waypoint x="680" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

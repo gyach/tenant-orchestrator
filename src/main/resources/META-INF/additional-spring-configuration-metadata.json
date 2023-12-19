@@ -1,0 +1,53 @@
+{
+  "groups": [
+    {
+      "name": "keycloak"
+    },
+    {
+      "name": "keycloak.admin"
+    },
+    {
+      "name": "ru.gyach.tenantorchestrator"
+    },
+    {
+      "name": "ru.gyach.tenantorchestrator.kubernetes"
+    }
+  ],
+  "properties": [
+    {
+      "name": "keycloak.admin.server-url",
+      "type": "java.lang.String",
+      "description": "Адрес сервера Keycloak."
+    },
+    {
+      "name": "keycloak.admin.realm",
+      "type": "java.lang.String",
+      "description": "Realm, который является мастером."
+    },
+    {
+      "name": "keycloak.admin.client-id",
+      "type": "java.lang.String",
+      "description": "client-id для администрирования."
+    },
+    {
+      "name": "keycloak.admin.username",
+      "type": "java.lang.String",
+      "description": "Логин администратора."
+    },
+    {
+      "name": "keycloak.admin.password",
+      "type": "java.lang.String",
+      "description": "Пароль администратора."
+    },
+    {
+      "name": "ru.gyach.tenantorchestrator.application-domain",
+      "type": "java.lang.String",
+      "description": "Домен, на котором развернуто приложение."
+    },
+    {
+      "name": "ru.gyach.tenantorchestrator.kubernetes.master-node",
+      "type": "java.lang.String",
+      "description": "Endpoint kubeApi."
+    }
+  ]
+}

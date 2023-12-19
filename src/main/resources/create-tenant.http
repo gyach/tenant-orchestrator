@@ -1,0 +1,13 @@
+### Create tenant
+POST http://localhost:8000/api/v1/tenants
+Content-Type: application/json
+
+{
+  "slug": "frontend",
+  "name": "Frontend dev tenant",
+  "ownerEmail": "front@dev.localhost"
+}
+
+### Test tenant
+GET http://localhost:8000/api/v1/tenants
+Content-Type: application/json

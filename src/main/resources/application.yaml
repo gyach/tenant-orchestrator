@@ -1,0 +1,41 @@
+server.port: 8000
+
+spring:
+  application.name: tenant-orchestrator-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/tenant_orchestrator
+    username: tenant_orchestrator
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    enabled: true
+  mail:
+    host: localhost
+    port: 25
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: dHEVEinveleu
+    webapp:
+      index-redirect-enabled: false
+    deployment-resource-pattern: classpath:/bpmn/**.bpmn
+
+keycloak:
+  admin:
+    server-url: https://sso.dev.localhost
+    realm: master
+    client-id: 'admin-cli'
+    # same in compose.yaml
+    username: admin
+    password: admin
+
+ru.gyach.tenantorchestrator:
+  application-domain: dev.localhost
+  kubernetes:
+    master-node: https://127.0.0.1:32769
