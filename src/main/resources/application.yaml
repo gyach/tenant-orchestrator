@@ -4,7 +4,7 @@ spring:
   application.name: tenant-orchestrator-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5435/tenant_orchestrator
+    url: jdbc:postgresql://localhost:5432/tenant_orchestrator
     username: tenant_orchestrator
     password: password
     driver-class-name: org.postgresql.Driver
