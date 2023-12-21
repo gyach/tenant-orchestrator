@@ -49,5 +49,3 @@ services:
     image: rnwood/smtp4dev:v3
     container_name: tenant-orchestrator-smtp4dev
     restart: unless-stopped
-    environment:
-      ServerOptions__Urls: http://*:5000
