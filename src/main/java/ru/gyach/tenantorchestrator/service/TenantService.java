@@ -1,7 +1,9 @@
 package ru.gyach.tenantorchestrator.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ru.gyach.tenantorchestrator.dto.CreateTenantRequestDto;
@@ -12,13 +14,13 @@ import ru.gyach.tenantorchestrator.repository.TenantRepository;
  * Управление сущностью тенанта
  */
 @Service
-@RequiredArgsConstructor
 public class TenantService {
-    private final TenantRepository tenantRepository;
-    private final ModelMapper modelMapper;
+    @Autowired private TenantRepository tenantRepository;
+    @Autowired private ModelMapper modelMapper;
 
     /**
      * Создает в БД сущность тенанта
+     *
      * @param dto {@link CreateTenantRequestDto}
      * @throws Exception
      */

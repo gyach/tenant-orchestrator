@@ -1,6 +1,4 @@
 name: 'ru_gyach'
-volumes:
-  kafka:
 
 services:
   postgres:

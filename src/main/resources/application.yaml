@@ -4,7 +4,7 @@ spring:
   application.name: tenant-orchestrator-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/tenant_orchestrator
+    url: jdbc:postgresql://localhost:5435/tenant_orchestrator
     username: tenant_orchestrator
     password: password
     driver-class-name: org.postgresql.Driver
@@ -28,7 +28,7 @@ camunda:
 
 keycloak:
   admin:
-    server-url: https://sso.dev.localhost
+    server-url: http://sso.localhost
     realm: master
     client-id: 'admin-cli'
     # same in compose.yaml
@@ -36,6 +36,6 @@ keycloak:
     password: admin
 
 ru.gyach.tenantorchestrator:
-  application-domain: dev.localhost
+  application-domain: localhost
   kubernetes:
-    master-node: https://127.0.0.1:32769
+    master-node: https://127.0.0.1:57374
